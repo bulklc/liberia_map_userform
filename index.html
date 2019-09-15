@@ -83,16 +83,34 @@
     <h3 id="locationmessage"></h3>
   </header>
 
-</font>
-</center>
-
-
 <div id="imap">
 <div id="map">
 </div>
 </div>
 
-<br>
+
+
+<!-- ########################### Shop Image ################################ -->
+
+
+
+<center>
+<font face="Helvetica" color=#09829b >
+
+<br><h3>Step 2 (Optional) - Add Shop Image</h3>
+
+
+<form action="/action_page.php">
+  <input type="file" name="pic" accept="image/*">
+  <input type="submit">
+</form>
+
+
+
+<br><h3>Step 3 - Record Supply Availability and Price / Notes </h3>
+
+</font>
+</center>
 
 <!-- ########################### Physics ################################ -->
 
@@ -431,7 +449,12 @@
   </tr>
 
 </table>
+
+<br>
+<center>
 <input type="submit" value="Submit" onclick="myFunction()" />
+</center>
+
 </form></p></div>
 
 <!-- ########################### Chemistry ################################ -->
@@ -830,7 +853,13 @@
   </tr>
 
 </table>
+
+<br>
+<center>
 <input type="submit" value="Submit" onclick="myFunction()" />
+</center>
+
+
 </form></p></div>
 
 <!-- ########################### Chemicals ################################ -->
@@ -1181,7 +1210,11 @@
   </tr>
 
 </table>
+
+<br>
+<center>
 <input type="submit" value="Submit" onclick="myFunction()" />
+</center>
 </form></p></div>
 
 
@@ -1317,10 +1350,14 @@
   </tr>
 
 </table>
+<br>
+<center>
 <input type="submit" value="Submit" onclick="myFunction()" />
+</center>
 </form></p></div>
 
-<!-- ########################### Safety ################################ -->
+
+<!-- ########################### Safety Supplies ################################ -->
 
 <button class="collapsible">Safety</button>
 <div class="content">
@@ -1392,11 +1429,28 @@
   </tr>
 
 </table>
+<br>
+<center>
 <input type="submit" value="Submit" onclick="myFunction()" />
+</center>
 </form>
 </p>
 </div>
 
+
+<!-- ########################### Master Submit ################################ -->
+
+<center>
+<font face="Helvetica" color=#09829b >
+<br><h3>Step 4 - Submit Complete Form </h3>
+
+<form action="/action_page.php">
+  <input type="submit">
+</form>
+</font>
+</center>
+
+<!-- ########################### Scripts ################################ -->
 
 <script>
 var coll = document.getElementsByClassName("collapsible");
@@ -1444,16 +1498,14 @@ for (i = 0; i < coll.length; i++) {
 	   .setContent("Shop")
            .openOn(macarte);
         //var marker = L.marker(e.latlng).addTo(macarte) 		
-        document.getElementById("locationmessage").innerHTML = "Shop indicated at Coordinates " + shoplatlong
+        document.getElementById("locationmessage").innerHTML = "Shop at Coordinates " + shoplatlong
 		}
    $(document).ready(function(){initMap();});
 
-   document.getElementById("locationmessage").innerHTML = "Please Select Location"
+   document.getElementById("locationmessage").innerHTML = "Step 1 - Select Location"
 
 </script>
 
-
-<!-- </font> -->
 </body>
 </html>
 
