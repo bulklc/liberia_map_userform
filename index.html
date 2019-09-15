@@ -1,35 +1,67 @@
 <html>
 
 <head>
-<!-- <meta charset="utf-8">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="crossorigin="" />
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" /> -->
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
 <link rel="stylesheet" href="css/L.Control.Locate.min.css">
 <link rel="stylesheet" href="css/fontawesome-all.min.css">
 <link rel="stylesheet" href="css/leaflet.css">
 <link rel="stylesheet" href="css/qgis2web.css">
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="crossorigin=""></script>
-
+ 
 <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'> </script>
 <script src="js/L.Control.Locate.min.js"></script>
-<!-- <script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'>
-</script> -->
-<!-- <style type="text/css">
+<script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'>
+</script>
+<!--<style type="text/css">
 #map{height:1000px; width: 1000px;}
-</style> -->
+</style>-->
 
 
 <style>
-	.collapsible {background-color: #777; color: white; cursor: pointer; padding: 18px;
-              width: 100%; border: none; text-align: left; outline: none; font-size: 15px;}
 
-	.active, .collapsible:hover {background-color: #555;}
-	.content {padding: 0 18px; display: none; overflow: hidden; background-color: #f1f1f1;}
-          #map{ width:700px; height: 500px; }
+	.collapsible {
+		background-color: #09829b;
+		font-size: 15px;
+		padding: 18px;
+ 		width: 400px;
+		color: white;
+		font-weight: bold;
+		cursor: pointer;
+ 		display: block; 
+		margin: 0 auto;
+		overflow: hidden;} 
+
+	.collapsible:hover {background-color: #ffdf5e;color: black;}
+
+	.content {
+		background-color: #ffffff;
+		font-size: 15px;
+		padding: 0;
+ 		width: 400px;
+		color: white; 
+		margin: auto;
+		display: none;
+		overflow: hidden;} 
+
+	table {margin: auto;
+	       border-spacing:0;
+ 	       border-collapse: collapse;}
+
+		tr:nth-child(even) {background-color: #c8c8c8;}
+		tr:nth-child(odd) {background-color:  #e8e6e4;}
+	
+
+          #map{ max-width:400px; 
+		height: 500px; 
+		margin: auto; 
+		border: 3px solid #09839b;}
+
 </style>
 
 <style type="text/css">
@@ -43,18 +75,24 @@
 
 <body>
 
+<center>
+<font face="Helvetica" color=#09829b >
+
+ <header>
+    <h1>Science Supplies Submission Form</h1>
+    <h3 id="locationmessage"></h3>
+  </header>
+
+</font>
+</center>
+
+
 <div id="imap">
 <div id="map">
 </div>
 </div>
 
-</div>
-<p>
-Put Helpful Text Here</p>
-
-<p>
-<input id="location" type="text" size="40" value = "xxx">
-</p>
+<br>
 
 <!-- ########################### Physics ################################ -->
 
@@ -62,15 +100,11 @@ Put Helpful Text Here</p>
 <div class="content">
 <p><form>
 <table>
-  <col width="10">
-  <col width="200">
-  <col width="50">
-  <col width="50">
-  <tr>
-    <th></th>
-    <th></th>
-    <th class="tg-head">Price</th>
-  </tr>
+<col style="width: 5px">
+<col style="width: 220px">
+<col style="width: 5px">
+<col style="width: 5px">
+
 
 <!-- ### phy001 ### -->
 
@@ -406,15 +440,10 @@ Put Helpful Text Here</p>
 <div class="content">
 <p><form>
 <table>
-  <col width="10">
-  <col width="200">
-  <col width="50">
-  <col width="50">
-  <tr>
-    <th></th>
-    <th></th>
-    <th class="tg-head">Price</th>
-  </tr>
+<col style="width: 5px">
+<col style="width: 220px">
+<col style="width: 5px">
+<col style="width: 5px">
 
 <!-- ### cst001 ### -->
 
@@ -810,15 +839,10 @@ Put Helpful Text Here</p>
 <div class="content">
 <p><form>
 <table>
-  <col width="10">
-  <col width="200">
-  <col width="50">
-  <col width="50">
-  <tr>
-    <th></th>
-    <th></th>
-    <th class="tg-head">Price</th>
-  </tr>
+<col style="width: 5px">
+<col style="width: 220px">
+<col style="width: 5px">
+<col style="width: 5px">
 
 <!-- ### chm001 ### -->
 
@@ -1167,15 +1191,10 @@ Put Helpful Text Here</p>
 <div class="content">
 <p><form>
 <table>
-  <col width="10">
-  <col width="200">
-  <col width="50">
-  <col width="50">
-  <tr>
-    <th></th>
-    <th></th>
-    <th class="tg-head">Price</th>
-  </tr>
+<col style="width: 5px">
+<col style="width: 220px">
+<col style="width: 5px">
+<col style="width: 5px">
 
 <!-- ### bio001 ### -->
 
@@ -1307,15 +1326,10 @@ Put Helpful Text Here</p>
 <div class="content">
 <p><form>
 <table>
-  <col width="10">
-  <col width="200">
-  <col width="50">
-  <col width="50">
-  <tr>
-    <th></th>
-    <th></th>
-    <th class="tg-head">Price</th>
-  </tr>
+<col style="width: 5px">
+<col style="width: 220px">
+<col style="width: 5px">
+<col style="width: 5px">
 
 <!-- ### sft001 ### -->
 
@@ -1407,29 +1421,34 @@ for (i = 0; i < coll.length; i++) {
     var lat = 6.533645;
     var lon = -9.415283;
     var alt =481;
-   var macarte = null;
+    var macarte = null;
     var i = 0;
     var markerClusters;
     var popup = L.popup();
+    var MyEdit = null;
+
    function initMap(){
       macarte = L.map('map').setView([lat, lon], 7);
       L.control.locate().addTo(macarte);
       markerClusters = L.markerClusterGroup; 
-      L.tileLayer(theme, {
-          minZoom: 1,
-          maxZoom: 20
-      }).addTo(macarte);
+      L.tileLayer(theme, {minZoom: 7,maxZoom: 20}).addTo(macarte);
       macarte.on('click', onMapClick);
   }
 
     function onMapClick(e) {
+	var shoplatlong = e.latlng.toString();
+	shoplatlong = shoplatlong.substring(7, shoplatlong.length-1); 	
+
         popup
            .setLatLng(e.latlng)
-           .setContent("You clicked the map at " + e.latlng.toString())
+	   .setContent("Shop")
            .openOn(macarte);
-        var marker = L.marker(e.latlng).addTo(macarte)
- 			   }
+        //var marker = L.marker(e.latlng).addTo(macarte) 		
+        document.getElementById("locationmessage").innerHTML = "Shop indicated at Coordinates " + shoplatlong
+		}
    $(document).ready(function(){initMap();});
+
+   document.getElementById("locationmessage").innerHTML = "Please Select Location"
 
 </script>
 
