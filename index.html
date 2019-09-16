@@ -1,15 +1,1771 @@
-<html> 
-  <head> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script> 
-    $(function(){
-      $("#includedContent").load("b.html"); 
-    });
-    </script> 
-  </head> 
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" 
+          href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" 
+          integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="crossorigin=""/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="css/L.Control.Locate.min.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/qgis2web.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
 
-  <body> 
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+            integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="crossorigin=""></script>
+ 
+    <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'> </script>
+    <script src="js/L.Control.Locate.min.js"></script>
+    <script type='text/javascript' 
+            src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 
-     <div id="includedContent"></div>
-  </body> 
+    <style> 
+
+      .accordion {
+		background-color: #ffffff;
+		font-size: 15px;
+		padding: 0px;
+ 		width: 400px;
+		color: black;
+		font-weight: bold;
+		cursor: pointer;
+ 		display: block; 
+		margin: 0 auto;
+		overflow: hidden;} 
+
+      .accordion .card-header {background-color: #09839b;
+	                       font-size: 15px;
+                              } 
+      .accordion .btn {background-color: #09839b;
+	               font-size: 15px;
+                       color: white;
+                       font-weight: bold;} 
+
+       table {margin: auto;
+	       border-spacing:0;
+ 	       border-collapse: collapse;}
+
+
+		tr:nth-child(odd) {background-color:  #f0f0f0;}
+	
+        #map{ max-width:400px; 
+		height: 500px; 
+		margin: auto; 
+		border: 3px solid #09839b;}
+
+    </style>
+
+    <style type="text/css">
+	th{font-family: Helvetica; font-size: 10pt;vertical-align:center}
+	td{font-family: Helvetica; font-size: 10pt;vertical-align:center}
+	.tg .tg-head{font-weight:bold;border-color:inherit;text-align:center;vertical-align:center}
+     </style>
+
+  </head>
+
+  <body>
+    <center>
+      <font color=#09829b>
+        <br><h2>Science Supplies Submission Form</h2>
+        <br><h5 id="locationmessage"></h5>
+        <form action="/action_page.php">
+
+<!-- ########################### Shop Location ################################ -->
+
+          <div id="imap">
+            <div id="map">
+            </div>
+          </div>
+
+<br>
+
+<div class="accordion" id="accordionExample">
+
+<!-- ########################### Shop Image ################################ -->
+
+  <div class="card">
+    <div class="card-header" id="headingZero">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" 
+                type="button" 
+                data-toggle="collapse" 
+                data-target="#collapseZero" 
+                aria-expanded="false" 
+                aria-controls="collapseZero">
+
+          Shop Image (Optional)
+
+        </button>
+      </h2>
+    </div>
+    <div id="collapseZero"
+         class="collapse"
+         aria-labelledby="headingZero"
+         data-parent="#accordionExample">
+      <div class="card-body">
+
+  	   <input type="file" name="pic" accept="image/*">
+
+      </div>
+    </div>
+  </div>
+
+<!-- ########################### Physics ################################ -->
+
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" 
+                type="button" 
+                data-toggle="collapse"
+                data-target="#collapseOne" 
+                aria-expanded="false" 
+                aria-controls="collapseOne">
+
+          Physics
+
+        </button>
+      </h2>
+    </div>
+    <div id="collapseOne" 
+         class="collapse"
+         aria-labelledby="headingOne"
+         data-parent="#accordionExample">
+      <div class="card-body">
+        <table>
+          <col style="width: 5px">
+	  <col style="width: 220px">
+	  <col style="width: 5px">
+	  <col style="width: 5px">
+
+<!-- ### phy001 ### -->
+
+  	  <tr>
+            <td><input name="phy001-a" type="checkbox"></td>
+            <td>Ammeter</td>
+    	    <td><input align = "center" name="phy001-b" type="text" size="5"></td>
+      	    <td>
+              <select name="phy001-c">
+    	        <option value="LD">LD</option>
+    	        <option value="USD">USD</option>
+    	      </select>
+            </td>
+  	  </tr>
+
+<!-- ### phy002 ### -->
+
+  	  <tr>
+       	    <td><input name="phy002-a" type="checkbox"></td>
+            <td>Bar Magnet</td>
+            <td><input name="phy002-b" type="text" size="5"></td>
+            <td>
+              <select name="phy002-c">
+    	        <option value="LD">LD</option>
+    	        <option value="USD">USD</option>
+              </select>
+            </td>
+          </tr>
+
+<!-- ### phy003 ### -->
+
+  	  <tr>
+            <td><input name="phy003-a" type="checkbox"></td>
+            <td>Battery Case</td>
+            <td><input name="phy003-b" type="text" size="5"></td>
+            <td>
+              <select name="phy003-c">
+    	        <option value="LD">LD</option>
+    	      	<option value="USD">USD</option>
+              </select>
+            </td>
+          </tr>
+
+<!-- ### phy004 ### -->
+
+	  <tr>
+	    <td><input name="phy004-a" type="checkbox"></td>
+	    <td>C Clamp</td>
+	    <td><input name="phy004-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy004-c">
+	        <option value="LD">LD</option>
+	      	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy005 ### -->
+
+	  <tr>
+	    <td><input name="phy005-a" type="checkbox"></td>
+	    <td>Calorimeter</td>
+	    <td><input name="phy005-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy005-c">
+	        <option value="LD">LD</option>
+	      	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy006 ### -->
+
+	  <tr>
+	    <td><input name="phy006-a" type="checkbox"></td>
+	    <td>Compass</td>
+	    <td><input name="phy006-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy006-c">
+	        <option value="LD">LD</option>
+	      	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy007### -->
+
+	  <tr>
+	    <td><input name="phy007-a" type="checkbox"></td>
+	    <td>Concave Mirror</td>
+	    <td><input name="phy007-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy007-c">
+	        <option value="LD">LD</option>
+	      	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy008 ### -->
+
+	  <tr>
+	    <td><input name="phy008-a" type="checkbox"></td>
+	    <td>Converging Lens</td>
+	    <td><input name="phy008-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy008-c">
+	        <option value="LD">LD</option>
+	        <option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy009 ### -->
+
+	  <tr>
+	    <td><input name="phy009-a" type="checkbox"></td>
+	    <td>Convex Mirror</td>
+	    <td><input name="phy009-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy009-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy010 ### -->
+
+	  <tr>
+	    <td><input name="phy010-a" type="checkbox"></td>
+	    <td>Crocodile Clips</td>
+	    <td><input name="phy010-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy010-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy011 ### -->
+
+	  <tr>
+	    <td><input name="phy011-a" type="checkbox"></td>
+	    <td>Diverging Lens</td>
+	    <td><input name="phy011-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy011-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy012 ### -->
+
+	  <tr>
+	    <td><input name="phy012-a" type="checkbox"></td>
+	    <td>Glass Block</td>
+	    <td><input name="phy012-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy012-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy013 ### -->
+
+	  <tr>
+	    <td><input name="phy013-a" type="checkbox"></td>
+	    <td>Hydrometer</td>
+	    <td><input name="phy013-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy013-c">
+	        <option value="LD">LD</option>
+	        <option value="USD">USD</option>
+	      </select>
+	    </td>
+	  </tr>
+
+<!-- ### phy014 ### -->
+
+	  <tr>
+	    <td><input name="phy014-a" type="checkbox"></td>
+	    <td>Meter Stick</td>
+	    <td><input name="phy014-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy014-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy015 ### -->
+
+	  <tr>
+	    <td><input name="phy015-a" type="checkbox"></td>
+	    <td>Micrometer Screw Gauge</td>
+	    <td><input name="phy015-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy015-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy016 ### -->
+
+	  <tr>
+	    <td><input name="phy016-a" type="checkbox"></td>
+	    <td>Mirror / Lens Stand</td>
+	    <td><input name="phy016-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy016-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy017 ### -->
+
+          <tr>
+	    <td><input name="phy017-a" type="checkbox"></td>
+	    <td>Pulley</td>
+	    <td><input name="phy017-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy017-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy018 ### -->
+
+	  <tr>
+	    <td><input name="phy018-a" type="checkbox"></td>
+	    <td>Ray Box</td>
+	    <td><input name="phy018-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy018-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy019 ### -->
+
+	  <tr>
+	    <td><input name="phy019-a" type="checkbox"></td>
+	    <td>Rheostat</td>
+	    <td><input name="phy019-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy019-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy020 ### -->
+
+	  <tr>
+	    <td><input name="phy020-a" type="checkbox"></td>
+	    <td>Spring</td>
+	    <td><input name="phy020-b" type="text" size="5"></td>
+	    <td>
+	      <select name="phy020-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy021 ### -->
+
+	  <tr>
+	    <td><input name="phy021-a" type="checkbox"></td>
+	    <td>Spring Scale</td>
+	    <td><input name="phy021-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy021-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy022 ### -->
+
+	  <tr>
+	    <td><input name="phy022-a" type="checkbox"></td>
+	    <td>Thermometer</td>
+	    <td><input name="phy022-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy022-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy023 ### -->
+
+	  <tr>
+	    <td><input name="phy023-a" type="checkbox"></td>
+	    <td>Triangular Prism</td>
+	    <td><input name="phy023-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy023-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy024 ### -->
+
+	  <tr>
+	    <td><input name="phy024-a" type="checkbox"></td>
+	    <td>Tuning Fork</td>
+	    <td><input name="phy024-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy024-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy025 ### -->
+
+	  <tr>
+	    <td><input name="phy025-a" type="checkbox"></td>
+	    <td>Vernier Caliper</td>
+	    <td><input name="phy025-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy025-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy026 ### -->
+
+	  <tr>
+	    <td><input name="phy026-a" type="checkbox"></td>
+	    <td>Voltmeter</td>
+	    <td><input name="phy026-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy026-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### phy027 ### -->
+
+	  <tr>
+	    <td><input name="phy027-a" type="checkbox"></td>
+	    <td>Weights</td>
+	    <td><input name="phy027-b" type="text" size="5"></td>
+	    <td>
+              <select name="phy027-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<!-- ########################### Chemistry ################################ -->
+
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" 
+                type="button" 
+                data-toggle="collapse"
+                data-target="#collapseTwo" 
+                aria-expanded="false" 
+                aria-controls="collapseTwo">
+
+          Chemistry
+
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo"
+         class="collapse"
+         aria-labelledby="headingTwo"
+         data-parent="#accordionExample">
+      <div class="card-body">
+        <table>
+	  <col style="width: 5px">
+	  <col style="width: 220px">
+	  <col style="width: 5px">
+	  <col style="width: 5px">
+
+<!-- ### cst001 ### -->
+
+  	  <tr>
+       	    <td><input name="cst001-a" type="checkbox"></td>
+            <td>Balance</td>
+            <td><input name="cst001-b" type="text" size="5"></td>
+            <td>
+              <select name="cst001-c">
+    	        <option value="LD">LD</option>
+    	        <option value="USD">USD</option>
+              </select>
+            </td>
+   	  </tr>
+
+<!-- ### cst002 ### -->
+
+  	  <tr>
+            <td><input name="cst002-a" type="checkbox"></td>
+            <td>Beaker (glass)</td>
+            <td><input name="cst002-b" type="text" size="5"></td>
+            <td>
+              <select name="cst002-c">
+    	        <option value="LD">LD</option>
+    	        <option value="USD">USD</option>
+              </select>
+            </td>
+          </tr>
+
+<!-- ### cst003 ### -->
+
+	  <tr>
+	    <td><input name="cst003-a" type="checkbox"></td>
+	    <td>Beaker (plastic / rubber)</td>
+	    <td><input name="cst003-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst003-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst004 ### -->
+
+	  <tr>
+	    <td><input name="cst004-a" type="checkbox"></td>
+	    <td>Bosshead Clamp</td>
+	    <td><input name="cst004-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst004-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst005 ### -->
+
+	  <tr>
+	    <td><input name="cst005-a" type="checkbox"></td>
+	    <td>Burette</td>
+	    <td><input name="cst005-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst005-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst006 ### -->
+
+	  <tr>
+	    <td><input name="cst006-a" type="checkbox"></td>
+	    <td>Burette Clamp</td>
+	    <td><input name="cst006-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst006-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst007### -->
+
+	  <tr>
+	    <td><input name="cst007-a" type="checkbox"></td>
+	    <td>Centrifuge</td>
+	    <td><input name="cst007-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst007-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst008 ### -->
+
+	  <tr>
+	    <td><input name="cst008-a" type="checkbox"></td>
+	    <td>Centrifuge Tubes</td>
+	    <td><input name="cst008-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst008-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst009 ### -->
+
+	  <tr>
+	    <td><input name="cst009-a" type="checkbox"></td>
+	    <td>Conical Flask</td>
+	    <td><input name="cst009-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst009-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst010 ### -->
+
+	  <tr>
+	    <td><input name="cst010-a" type="checkbox"></td>
+	    <td>Crucible</td>
+	    <td><input name="cst010-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst010-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst011 ### -->
+
+	  <tr>
+	    <td><input name="cst011-a" type="checkbox"></td>
+	    <td>Dropper</td>
+	    <td><input name="cst011-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst011-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst012 ### -->
+
+	  <tr>
+	    <td><input name="cst012-a" type="checkbox"></td>
+	    <td>Dropper Bottle</td>
+	    <td><input name="cst012-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst012-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst013 ### -->
+
+	  <tr>
+	    <td><input name="cst013-a" type="checkbox"></td>
+	    <td>Evaporation Dish</td>
+	    <td><input name="cst013-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst013-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst014 ### -->
+
+	  <tr>
+	    <td><input name="cst014-a" type="checkbox"></td>
+	    <td>Filter Paper</td>
+	    <td><input name="cst014-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst014-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst015 ### -->
+
+	  <tr>
+	    <td><input name="cst015-a" type="checkbox"></td>
+	    <td>Glass Rod</td>
+	    <td><input name="cst015-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst015-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst016 ### -->
+
+	  <tr>
+	    <td><input name="cst016-a" type="checkbox"></td>
+	    <td>Graduated Cylinder</td>
+	    <td><input name="cst016-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst016-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst017 ### -->
+
+	  <tr>
+	    <td><input name="cst017-a" type="checkbox"></td>
+	    <td>Kerosene Burner</td>
+	    <td><input name="cst017-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst017-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst018 ### -->
+
+	  <tr>
+	    <td><input name="cst018-a" type="checkbox"></td>
+	    <td>Pipe Clay Triangle</td>
+	    <td><input name="cst018-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst018-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst019 ### -->
+
+	  <tr>
+	    <td><input name="cst019-a" type="checkbox"></td>
+	    <td>Retort Stand / Ring Stand</td>
+	    <td><input name="cst019-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst019-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst020 ### -->
+
+	  <tr>
+	    <td><input name="cst020-a" type="checkbox"></td>
+	    <td>Separating Funnel</td>
+	    <td><input name="cst020-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst020-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst021 ### -->
+
+	  <tr>
+	    <td><input name="cst021-a" type="checkbox"></td>
+	    <td>Small Gas Stove</td>
+	    <td><input name="cst021-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst021-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst022 ### -->
+
+	  <tr>
+	    <td><input name="cst022-a" type="checkbox"></td>
+	    <td>Stopper</td>
+	    <td><input name="cst022-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst022-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst023 ### -->
+
+	  <tr>
+	    <td><input name="cst023-a" type="checkbox"></td>
+	    <td>Test Tube</td>
+	    <td><input name="cst023-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst023-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst024 ### -->
+
+	  <tr>
+	    <td><input name="cst024-a" type="checkbox"></td>
+	    <td>Test Tube Brush</td>
+	    <td><input name="cst024-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst024-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst025 ### -->
+
+	  <tr>
+	    <td><input name="cst025-a" type="checkbox"></td>
+	    <td>Test Tube Holder</td>
+	    <td><input name="cst025-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst025-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst026 ### -->
+
+	  <tr>
+	    <td><input name="cst026-a" type="checkbox"></td>
+	    <td>Test Tube Rack</td>
+	    <td><input name="cst026-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst026-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst027 ### -->
+
+	  <tr>
+	    <td><input name="cst027-a" type="checkbox"></td>
+	    <td>Tongs</td>
+	    <td><input name="cst027-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst027-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst028 ### -->
+
+	  <tr>
+	    <td><input name="cst028-a" type="checkbox"></td>
+	    <td>Tripod Stand</td>
+	    <td><input name="cst028-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst028-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst029 ### -->
+
+	  <tr>
+	    <td><input name="cst029-a" type="checkbox"></td>
+	    <td>Volumetric Flask</td>
+	    <td><input name="cst029-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst029-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst030 ### -->
+
+	  <tr>
+	    <td><input name="cst030-a" type="checkbox"></td>
+	    <td>Wash Bottle</td>
+	    <td><input name="cst030-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst030-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst031 ### -->
+
+	  <tr>
+	    <td><input name="cst031-a" type="checkbox"></td>
+	    <td>Watch Glass</td>
+	    <td><input name="cst031-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst031-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### cst032 ### -->
+
+	  <tr>
+	    <td><input name="cst032-a" type="checkbox"></td>
+	    <td>Wire Gauze</td>
+	    <td><input name="cst032-b" type="text" size="5"></td>
+	    <td>
+              <select name="cst032-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+	</table>
+      </div>
+    </div>
+  </div>
+
+<!-- ########################### Chemicals ################################ -->
+
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" 
+                type="button" 
+                data-toggle="collapse" 
+                data-target="#collapseThree"
+                aria-expanded="false" 
+                aria-controls="collapseThree">
+
+          Chemicals
+
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" 
+         class="collapse"
+         aria-labelledby="headingThree"
+         data-parent="#accordionExample">
+      <div class="card-body">
+        <table>
+	  <col style="width: 5px">
+	  <col style="width: 220px">
+	  <col style="width: 5px">
+	  <col style="width: 5px">
+
+<!-- ### chm001 ### -->
+
+	  <tr>
+	    <td><input name="chm001-a" type="checkbox"></td>
+	    <td>Acetic Acid (Concentrated)</td>
+	    <td><input name="chm001-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm001-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm002 ### -->
+
+	  <tr>
+	    <td><input name="chm002-a" type="checkbox"></td>
+	    <td>Aluminum Sulfate</td>
+	    <td><input name="chm002-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm002-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm003 ### -->
+
+	  <tr>
+	    <td><input name="chm003-a" type="checkbox"></td>
+	    <td>Ammonia</td>
+	    <td><input name="chm003-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm003-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm004 ### -->
+
+	  <tr>
+	    <td><input name="chm004-a" type="checkbox"></td>
+	    <td>Ammonium Chloride</td>
+	    <td><input name="chm004-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm004-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm005 ### -->
+
+	  <tr>
+	    <td><input name="chm005-a" type="checkbox"></td>
+	    <td>Barium Chloride</td>
+	    <td><input name="chm005-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm005-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm006 ### -->
+
+	  <tr>
+	    <td><input name="chm006-a" type="checkbox"></td>
+	    <td>Benedict’s Solution</td>
+	    <td><input name="chm006-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm006-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm007### -->
+
+	  <tr>
+	    <td><input name="chm007-a" type="checkbox"></td>
+	    <td>Blue Litmus Paper</td>
+	    <td><input name="chm007-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm007-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm008 ### -->
+
+	  <tr>
+	    <td><input name="chm008-a" type="checkbox"></td>
+	    <td>Calcium Carbonate</td>
+	    <td><input name="chm008-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm008-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm009 ### -->
+
+	  <tr>
+	    <td><input name="chm009-a" type="checkbox"></td>
+	    <td>Calcium Chloride</td>
+	    <td><input name="chm009-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm009-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm010 ### -->
+
+	  <tr>
+	    <td><input name="chm010-a" type="checkbox"></td>
+	    <td>Copper (II) Sulfate</td>
+	    <td><input name="chm010-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm010-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm011 ### -->
+
+	  <tr>
+	    <td><input name="chm011-a" type="checkbox"></td>
+	    <td>Ethanol (absolute)</td>
+	    <td><input name="chm011-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm011-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm012 ### -->
+
+	  <tr>
+	    <td><input name="chm012-a" type="checkbox"></td>
+	    <td>Hydrochloric Acid</td>
+	    <td><input name="chm012-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm012-c">
+	    	<option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm013 ### -->
+
+	  <tr>
+            <td><input name="chm013-a" type="checkbox"></td>
+	    <td>Iron (II) Sulfate</td>
+	    <td><input name="chm013-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm013-c">
+	    	<option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select></td>
+	  </tr>
+
+<!-- ### chm014 ### -->
+
+	  <tr>
+	    <td><input name="chm014-a" type="checkbox"></td>
+	    <td>Iron (III) Chloride</td>
+	    <td><input name="chm014-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm014-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	       </select>
+            </td>
+	  </tr>
+
+<!-- ### chm015 ### -->
+
+	  <tr>
+	    <td><input name="chm015-a" type="checkbox"></td>
+	    <td>Magnesium Sulfate (Epsom Salt)</td>
+	    <td><input name="chm015-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm015-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm016 ### -->
+
+	  <tr>
+	    <td><input name="chm016-a" type="checkbox"></td>
+	    <td>Marble Chips</td>
+	    <td><input name="chm016-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm016-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm017 ### -->
+
+	  <tr>
+	    <td><input name="chm017-a" type="checkbox"></td>
+	    <td>Methyl Orange</td>
+	    <td><input name="chm017-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm017-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm018 ### -->
+
+	  <tr>
+	    <td><input name="chm018-a" type="checkbox"></td>
+	    <td>Nitric Acid</td>
+	    <td><input name="chm018-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm018-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm019 ### -->
+
+	  <tr>
+	    <td><input name="chm019-a" type="checkbox"></td>
+	    <td>pH Paper</td>
+	    <td><input name="chm019-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm019-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm020 ### -->
+
+	  <tr>
+	    <td><input name="chm020-a" type="checkbox"></td>
+	    <td>Phenolphthalein</td>
+	    <td><input name="chm020-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm020-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm021 ### -->
+
+	  <tr>
+	    <td><input name="chm021-a" type="checkbox"></td>
+	    <td>Potassium Permanganate</td>
+	    <td><input name="chm021-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm021-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm022 ### -->
+
+	  <tr>
+            <td><input name="chm022-a" type="checkbox"></td>
+	    <td>Red Litmus Paper</td>
+	    <td><input name="chm022-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm022-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm023 ### -->
+
+	  <tr>
+	    <td><input name="chm023-a" type="checkbox"></td>
+	    <td>Silver Nitrate</td>
+	    <td><input name="chm023-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm023-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm024 ### -->
+
+	  <tr>
+	    <td><input name="chm024-a" type="checkbox"></td>
+	    <td>Sodium Bicarbonate</td>
+	    <td><input name="chm024-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm024-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm025 ### -->
+
+	  <tr>
+	    <td><input name="chm025-a" type="checkbox"></td>
+	    <td>Sodium Carbonate</td>
+	    <td><input name="chm025-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm025-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm026 ### -->
+
+	  <tr>
+	    <td><input name="chm026-a" type="checkbox"></td>
+	    <td>Sodium Thiosulfate</td>
+	    <td><input name="chm026-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm026-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm027 ### -->
+
+	  <tr>
+	    <td><input name="chm027-a" type="checkbox"></td>
+	    <td>Zinc Granules</td>
+	    <td><input name="chm027-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm027-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### chm028 ### -->
+
+	  <tr>
+	    <td><input name="chm028-a" type="checkbox"></td>
+	    <td>Zinc Nitrate</td>
+	    <td><input name="chm028-b" type="text" size="5"></td>
+	    <td>
+              <select name="chm028-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+	</table>
+      </div>
+    </div>
+  </div>
+
+<!-- ########################### Biology ################################ -->
+
+  <div class="card">
+    <div class="card-header" id="headingFour">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" 
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseFour"
+                aria-expanded="false"
+                aria-controls="collapseFour">
+
+          Biology
+
+        </button>
+      </h2>
+    </div>
+    <div id="collapseFour"
+         class="collapse"
+         aria-labelledby="headingFour"
+         data-parent="#accordionExample">
+      <div class="card-body">
+
+        <table>
+          <col style="width: 5px">
+          <col style="width: 220px">
+          <col style="width: 5px">
+          <col style="width: 5px">
+
+<!-- ### bio001 ### -->
+
+	  <tr>
+	    <td><input name="bio001-a" type="checkbox"></td>
+	    <td>Blank Slides</td>
+	    <td><input name="bio001-b" type="text" size="5"></td>
+	    <td>
+              <select name="bio001-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### bio002 ### -->
+
+	  <tr>
+	    <td><input name="bio002-a" type="checkbox"></td>
+	    <td>Dissecting Kit</td>
+	    <td><input name="bio002-b" type="text" size="5"></td>
+	    <td>
+              <select name="bio002-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### bio003 ### -->
+
+	  <tr>
+	    <td><input name="bio003-a" type="checkbox"></td>
+	    <td>Dissecting Tray</td>
+	    <td><input name="bio003-b" type="text" size="5"></td>
+	    <td>
+              <select name="bio003-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### bio004 ### -->
+
+	  <tr>
+	    <td><input name="bio004-a" type="checkbox"></td>
+	    <td>Lens Paper</td>
+	    <td><input name="bio004-b" type="text" size="5"></td>
+	    <td>
+              <select name="bio004-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### bio005 ### -->
+
+	  <tr>
+	    <td><input name="bio005-a" type="checkbox"></td>
+	    <td>Magnifying Glass</td>
+	    <td><input name="bio005-b" type="text" size="5"></td>
+	    <td>
+              <select name="bio005-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### bio006 ### -->
+
+	  <tr>
+	    <td><input name="bio006-a" type="checkbox"></td>
+	    <td>Methylene Blue</td>
+	    <td><input name="bio006-b" type="text" size="5"></td>
+	    <td>
+              <select name="bio006-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### bio007### -->
+
+	  <tr>
+	    <td><input name="bio007-a" type="checkbox"></td>
+	    <td>Microscope</td>
+	    <td><input name="bio007-b" type="text" size="5"></td>
+	    <td>
+              <select name="bio007-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### bio008 ### -->
+
+	  <tr>
+	    <td><input name="bio008-a" type="checkbox"></td>
+	    <td>Petri Dish</td>
+	    <td><input name="bio008-b" type="text" size="5"></td>
+	    <td>
+              <select name="bio008-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### bio009 ### -->
+
+	  <tr>
+	    <td><input name="bio009-a" type="checkbox"></td>
+	    <td>Prepared Slides</td>
+	    <td><input name="bio009-b" type="text" size="5"></td>
+	    <td>
+              <select name="bio009-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### bio010 ### -->
+
+	  <tr>
+	    <td><input name="bio010-a" type="checkbox"></td>
+	    <td>Slide Coverslips</td>
+	    <td><input name="bio010-b" type="text" size="5"></td>
+	    <td>
+              <select name="bio010-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+	</table>
+      </div>
+    </div>
+  </div>
+
+<!-- ########################### Safety Supplies ################################ -->
+
+  <div class="card">
+    <div class="card-header" id="headingFive">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" 
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseFive"
+                aria-expanded="false"
+                aria-controls="collapseFive">
+
+          Safety Supplies
+
+        </button>
+      </h2>
+    </div>
+    <div id="collapseFive"
+         class="collapse"
+         aria-labelledby="headingFive"
+         data-parent="#accordionExample">
+      <div class="card-body">
+        <table>
+	  <col style="width: 5px">
+	  <col style="width: 220px">
+	  <col style="width: 5px">
+	  <col style="width: 5px">
+
+<!-- ### sft001 ### -->
+
+	  <tr>
+	    <td><input name="sft001-a" type="checkbox"></td>
+	    <td>Fire Extinguisher</td>
+	    <td><input name="sft001-b" type="text" size="5"></td>
+	    <td>
+              <select name="sft001-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### sft002 ### -->
+
+	  <tr>
+	    <td><input name="sft002-a" type="checkbox"></td>
+	    <td>First Aid Kit</td>
+	    <td><input name="sft002-b" type="text" size="5"></td>
+	    <td>
+              <select name="sft002-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### sft003 ### -->
+
+	  <tr>
+	    <td><input name="sft003-a" type="checkbox"></td>
+	    <td>Goggles</td>
+	    <td><input name="sft003-b" type="text" size="5"></td>
+	    <td>
+              <select name="sft003-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### sft004 ### -->
+
+	  <tr>
+	    <td><input name="sft004-a" type="checkbox"></td>
+	    <td>Latex Gloves</td>
+	    <td><input name="sft004-b" type="text" size="5"></td>
+	    <td>
+              <select name="sft004-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+<!-- ### sft005 ### -->
+
+	  <tr>
+	    <td><input name="sft005-a" type="checkbox"></td>
+	    <td>Thick Rubber Gloves</td>
+	    <td><input name="sft005-b" type="text" size="5"></td>
+	    <td>
+              <select name="sft005-c">
+	        <option value="LD">LD</option>
+	    	<option value="USD">USD</option>
+	      </select>
+            </td>
+	  </tr>
+
+	</table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<br><input type="submit">
+
+</form>
+</font>
+</center>
+</body>
+
+
+<!-- ########################### Map Scripts ################################ -->
+
+<script type="text/javascript">
+    var theme = 'http://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}';
+    var lat = 6.533645;
+    var lon = -9.415283;
+    var alt =481;
+    var macarte = null;
+    var i = 0;
+    var markerClusters;
+    var popup = L.popup();
+    var MyEdit = null;
+
+   function initMap(){
+      macarte = L.map('map').setView([lat, lon], 7);
+      L.control.locate().addTo(macarte);
+      markerClusters = L.markerClusterGroup; 
+      L.tileLayer(theme, {minZoom: 7,maxZoom: 20}).addTo(macarte);
+      macarte.on('click', onMapClick);
+  }
+
+    function onMapClick(e) {
+	var shoplatlong = e.latlng.toString();
+	shoplatlong = shoplatlong.substring(7, shoplatlong.length-1); 	
+
+        popup
+           .setLatLng(e.latlng)
+	   .setContent("Shop")
+           .openOn(macarte);
+        //var marker = L.marker(e.latlng).addTo(macarte) 		
+        document.getElementById("locationmessage").innerHTML = "Shop at Coordinates " + shoplatlong
+		}
+   $(document).ready(function(){initMap();});
+
+   document.getElementById("locationmessage").innerHTML = "Select Location"
+
+</script>
+
+</body>
 </html>
+
