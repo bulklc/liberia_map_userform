@@ -49,8 +49,8 @@
 		overflow: hidden;} 
 
       .accordion .card-header {background-color: #09839b;
-	                       font-size: 15px;
-                              } 
+	                       font-size: 15px;}
+ 
       .accordion .btn {background-color: #09839b;
 	               font-size: 15px;
                        color: white;
@@ -60,8 +60,7 @@
 	       border-spacing:0;
  	       border-collapse: collapse;}
 
-
-		tr:nth-child(odd) {background-color:  #f0f0f0;}
+	       tr:nth-child(odd) {background-color:  #f0f0f0;}
 	
         #map{ max-width:400px; 
 		height: 500px; 
@@ -70,21 +69,31 @@
 
     </style>
 
-    <style type="text/css">
-	th{font-family: Helvetica; font-size: 10pt;vertical-align:center}
-	td{font-family: Helvetica; font-size: 10pt;vertical-align:center}
-	.tg .tg-head{font-weight:bold;border-color:inherit;text-align:center;vertical-align:center}
-     </style>
 
   </head>
 
   <body>
     <center>
       <font color=#09829b>
+        <form action="/action_page.php">
         <br><h2>Science Supplies Submission Form</h2>
         <br><h5 id="locationmessage"></h5>
-        <form action="/action_page.php">
 
+        <table>
+	  <tr></tr>
+  	  <tr>
+            <td align="right">Latitude:</td> 
+            <td><input type="text" name="shoplatitude" id="shoplatt"></input></td>
+	  </tr>
+ 	  <tr></tr>
+	  <tr>
+	    <td align="right">Longitude: </td>
+            <td><input type="text" name="shoplongitude" id="shoplong"></input></td>
+          </tr>
+        </table>
+
+        <br>
+         
 <!-- ########################### Shop Location ################################ -->
 
           <div id="imap">
@@ -1719,7 +1728,6 @@
 </div>
 
 
-
 <br><input type="submit">
 
 </form>
@@ -1740,6 +1748,8 @@
     var markerClusters;
     var popup = L.popup();
     var MyEdit = null;
+    var inputlatt = document.getElementById("shoplatt"); 
+    var inputlong = document.getElementById("shoplong"); 
 
    function initMap(){
       macarte = L.map('map').setView([lat, lon], 7);
@@ -1758,11 +1768,15 @@
 	   .setContent("Shop")
            .openOn(macarte);
         //var marker = L.marker(e.latlng).addTo(macarte) 		
-        document.getElementById("locationmessage").innerHTML = "Shop at Coordinates " + shoplatlong
+        document.getElementById("locationmessage").innerHTML = "Shop Indicated at Coordinates"	
+
+        inputlatt.setAttribute('value', shoplatlong.split(", ")[0]); 
+        inputlong.setAttribute('value', shoplatlong.split(", ")[1]); 
 		}
-   $(document).ready(function(){initMap();});
+        $(document).ready(function(){initMap();});
 
    document.getElementById("locationmessage").innerHTML = "Select Location"
+
 
 </script>
 
