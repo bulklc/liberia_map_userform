@@ -431,11 +431,7 @@
 
     function onMapClick(e) {
 	var shoplatlong = e.latlng.toString();
-	shoplatlong = shoplatlong.substring(7, shoplatlong.length-1); 	
-
-	var texttobeshown = document.getElementsByName("sft005-a")[0].checked;
-	
-	alert(texttobeshown);		
+	shoplatlong = shoplatlong.substring(7, shoplatlong.length-1); 		
 	
         popup
            .setLatLng(e.latlng)
@@ -447,6 +443,7 @@
         inputlatt.setAttribute('value', shoplatlong.split(", ")[0]); 
         inputlong.setAttribute('value', shoplatlong.split(", ")[1]); 
 		}
+
         $(document).ready(function(){initMap();});
 
         document.getElementById("locationmessage").innerHTML = "Select Location"
