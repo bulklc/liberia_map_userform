@@ -40,7 +40,7 @@
 		background-color: #ffffff;
 		font-size: 15px;
 		padding: 0px;
- 		width: 500px;
+ 		width: 400px;
 		color: black;
 		font-weight: bold;
 		cursor: pointer;
@@ -59,11 +59,11 @@
        table {margin: auto;
 	       border-spacing:0;
  	       border-collapse: collapse;
-               font-size: 14px;}
+               font-size: 12px;}
 
 	       tr:nth-child(odd) {background-color:  #f0f0f0;}
 	
-        #map{ max-width:500px; 
+        #map{ max-width:400px; 
 		height: 500px; 
 		margin: auto; 
 		border: 3px solid #09839b;}
@@ -164,10 +164,10 @@
       <div class="card-body">
         <table id="phy_table">
           <col style="width: 5px">
-	  <col style="width: 220px">
+	  <col style="width: 260px">
 	  <col style="width: 5px">
 	  <col style="width: 5px">
-          <col style="width: 100px">
+          <col style="width: 5px">
 
 
         </table>
@@ -198,11 +198,11 @@
          data-parent="#accordionExample">
       <div class="card-body">
         <table id = cst_table>
+          <col style="width: 5px">
+	  <col style="width: 260px">
 	  <col style="width: 5px">
-	  <col style="width: 220px">
 	  <col style="width: 5px">
-	  <col style="width: 5px">
-          <col style="width: 100px">
+          <col style="width: 5px">
 
 	</table>
       </div>
@@ -232,11 +232,11 @@
          data-parent="#accordionExample">
       <div class="card-body">
         <table id = chm_table>
+          <col style="width: 5px">
+	  <col style="width: 260px">
 	  <col style="width: 5px">
-	  <col style="width: 220px">
 	  <col style="width: 5px">
-	  <col style="width: 5px">
-          <col style="width: 100px">
+          <col style="width: 5px">
 
 	</table>
       </div>
@@ -268,10 +268,10 @@
 
         <table id = bio_table>
           <col style="width: 5px">
-          <col style="width: 220px">
+	  <col style="width: 260px">
+	  <col style="width: 5px">
+	  <col style="width: 5px">
           <col style="width: 5px">
-          <col style="width: 5px">
-          <col style="width: 100px">
 
 	</table>
       </div>
@@ -301,11 +301,11 @@
          data-parent="#accordionExample">
       <div class="card-body">
         <table id = sft_table>
+          <col style="width: 5px">
+	  <col style="width: 260px">
 	  <col style="width: 5px">
-	  <col style="width: 220px">
 	  <col style="width: 5px">
-	  <col style="width: 5px">
-	  <col style="width: 100px">
+          <col style="width: 5px">
 
 	</table>
       </div>
@@ -396,9 +396,9 @@
 				
 				cellA.innerHTML = "<input name="+sbj_code+row_index_str+"-a\" type=\"checkbox\">";
 				cellB.innerHTML = item_name.value;
-				cellC.innerHTML = "<input name="+sbj_code+row_index_str+"-b\" type=\"text\" size=\"5\">";
+				cellC.innerHTML = "<input name="+sbj_code+row_index_str+"-b\" type=\"text\" size=\"3\">";
 				cellD.innerHTML = "<select name="+sbj_code+row_index_str+"-c\"><option value=\"LD\">LD</option><option value=\"USD\">USD</option></select>";
-				cellE.innerHTML = "<input name="+sbj_code+row_index_str+"-e\" type=\"text\" size=\"10\">";
+				cellE.innerHTML = "<input name="+sbj_code+row_index_str+"-e\" type=\"text\" size=\"6\">";
 
 					    }
 					}
